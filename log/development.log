@@ -1,0 +1,4 @@
+  [1m[35m (5.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "har-app_development"[0m
+  [1m[35m (5041.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "har-app_development"[0m
+  [1m[35m (120.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS "har-app_development"[0m
+  [1m[35m (118.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "har-app_test"[0m
