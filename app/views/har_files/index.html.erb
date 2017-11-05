@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Har Files</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @har_files.each do |har_file| %>
+      <tr>
+        <td><%= har_file.name %></td>
+        <td><%= har_file.description %></td>
+        <td><%= har_file.content %></td>
+        <td><%= link_to 'Show', har_file %></td>
+        <td><%= link_to 'Edit', edit_har_file_path(har_file) %></td>
+        <td><%= link_to 'Destroy', har_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Har File', new_har_file_path %>

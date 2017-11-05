@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p id="name">
+  <strong>Name:</strong>
+  <%= @har_file.name %>
+</p>
+
+<p id="description">
+  <strong>Description:</strong>
+  <%= @har_file.description %>
+</p>
+
+<p id="content">
+  <strong>Content:</strong>
+  <%= @har_file.content %>
+</p>
+
+<%= link_to 'Edit', edit_har_file_path(@har_file) %> |
+<%= link_to 'Back', har_files_path %>
