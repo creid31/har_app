@@ -26,6 +26,7 @@ class HarFilesController < ApplicationController
   # POST /har_files.json
   def create
     @har_file = HarFile.new(har_file_params)
+    @har_file.requests << process_file(@har_file.content.current_path)
 
     respond_to do |format|
       if @har_file.save
@@ -41,6 +42,7 @@ class HarFilesController < ApplicationController
   # PATCH/PUT /har_files/1
   # PATCH/PUT /har_files/1.json
   def update
+    @har_file.requests << process_file(har_file_params[:content].path)
     respond_to do |format|
       if @har_file.update(har_file_params)
         format.html { redirect_to @har_file, notice: 'Har file was successfully updated.' }
@@ -71,5 +73,35 @@ class HarFilesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def har_file_params
       params.require(:har_file).permit(:name, :description, :content)
+    end
+
+    def process_file(file)
+      json = parse_content(file)
+      log = json[:log]
+      if log.blank?
+        har.errors.messages[:content] << "file does not contain a 'log' object"
+        return har
+      end
+      entries = log[:entries]
+      if entries.blank?
+        har.errors.messages[:content] << 'har file does not contain any entries/requests'
+        return har
+      end
+      generate_requests(entries)
+    end
+
+    def parse_content(path)
+      content = File.read(path)
+      JSON.parse(content, symbolize_names: true)
+    end
+
+    def generate_requests(entries)
+      requests = []
+      entries.each_with_index do |entry, index|
+        request_json = entry[:request]
+        request = Request.new(method: request_json[:method], url: request_json[:url], index: index)
+        requests << request
+      end
+      requests
     end
 end

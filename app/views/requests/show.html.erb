@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Index:</strong>
+  <%= @request.index %>
+</p>
+
+<p>
+  <strong>Method:</strong>
+  <%= @request.method %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @request.uri %>
+</p>
+
+<p>
+  <strong>Har file:</strong>
+  <%= @request.har_file %>
+</p>
+
+<%= link_to 'Edit', edit_request_path(@request) %> |
+<%= link_to 'Back', requests_path %>
