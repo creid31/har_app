@@ -3,11 +3,12 @@ require 'rails_helper'
 RSpec.describe 'create har', :type => :request do
   context 'with valid file' do
     it 'creates har file' do
-      har = FactoryBot.attributes_for(:har_file)
+      har = FactoryBot.attributes_for(:valid_har)
       expect { post '/har_files', params: { har_file: har } }.to change(HarFile, :count)
     end
+
     it 'displays created file' do
-      har = FactoryBot.attributes_for(:har_file)
+      har = FactoryBot.attributes_for(:valid_har)
       post '/har_files', params: { har_file: har }
       expect(response).to redirect_to(HarFile.last)
     end
