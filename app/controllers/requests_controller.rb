@@ -4,7 +4,8 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-    @requests = Request.all
+    @har_file_id = params.require(:har_file_id)
+    @requests = Request.where(har_file_id: @har_file_id)
   end
 
   # GET /requests/1

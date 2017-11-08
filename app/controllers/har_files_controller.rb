@@ -27,7 +27,6 @@ class HarFilesController < ApplicationController
   def create
     @har_file = HarFile.new(har_file_params)
     @har_file.requests << process_file(@har_file.content.current_path)
-
     respond_to do |format|
       if @har_file.save
         format.html { redirect_to @har_file, notice: 'Har file was successfully created.' }
@@ -99,7 +98,7 @@ class HarFilesController < ApplicationController
       requests = []
       entries.each_with_index do |entry, index|
         request_json = entry[:request]
-        request = Request.new(method: request_json[:method], url: request_json[:url], index: index)
+        request = Request.new(method: request_json[:method], uri: request_json[:url], index: index)
         requests << request
       end
       requests

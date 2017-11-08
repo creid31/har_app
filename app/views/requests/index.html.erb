@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'Back', har_file_url(id: @har_file_id)%>
+
 <h1>Requests</h1>
 
 <table>
@@ -19,13 +21,10 @@
         <td><%= request.index %></td>
         <td><%= request.method %></td>
         <td><%= request.uri %></td>
-        <td><%= request.har_file %></td>
-        <td><%= link_to 'Show', request %></td>
+        <td><%= link_to 'Show', har_file_request_url(id: request.id) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Request', new_request_path %>

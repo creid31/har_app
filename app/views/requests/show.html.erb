@@ -19,6 +19,4 @@
   <strong>Har file:</strong>
   <%= @request.har_file %>
 </p>
-
-<%= link_to 'Edit', edit_request_path(@request) %> |
-<%= link_to 'Back', requests_path %>
+<%= link_to 'Back', har_file_requests_url(id: @request.har_file_id) %>
