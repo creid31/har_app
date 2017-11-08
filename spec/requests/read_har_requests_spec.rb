@@ -7,7 +7,7 @@ RSpec.describe 'retrieving hars', :type => :request do
       assert_select 'h1', 'Har Files'
     end
     it 'existing displays har files' do
-      FactoryBot.create(:har_file)
+      FactoryBot.create(:valid_har)
       get har_files_path
       assert_select 'table' do
         assert_select 'tbody' do
@@ -18,7 +18,7 @@ RSpec.describe 'retrieving hars', :type => :request do
   end
   context 'single har' do
     it 'displays all content' do
-      har = FactoryBot.create(:har_file)
+      har = FactoryBot.create(:valid_har)
       get har_files_path(har)
       expect(response).to be_success
     end

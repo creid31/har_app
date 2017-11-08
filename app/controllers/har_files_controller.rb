@@ -1,6 +1,6 @@
 class HarFilesController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_har_file, only: [:show, :edit, :update, :destroy]
+  before_action :set_har_file, only: %i[show edit update destroy]
 
   # GET /har_files
   # GET /har_files.json
@@ -74,18 +74,25 @@ class HarFilesController < ApplicationController
       params.require(:har_file).permit(:name, :description, :content)
     end
 
+    # Below private methods process the file and extract requests.
+    # TODO consider moving logic to a callback on har_file
     def process_file(file)
+      if file.blank?
+        logger.debug('The content uploader has deemed this file unfit')
+        return []
+      end
       json = parse_content(file)
       log = json[:log]
       if log.blank?
-        har.errors.messages[:content] << "file does not contain a 'log' object"
-        return har
+        logger.debug("file does not contain a 'log' object")
+        return []
       end
       entries = log[:entries]
       if entries.blank?
-        har.errors.messages[:content] << 'har file does not contain any entries/requests'
-        return har
+        logger.debug('har file does not contain any entries/requests')
+        return []
       end
+      # TODO: Expand validation of all fields in file
       generate_requests(entries)
     end
 

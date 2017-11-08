@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'update har', :type => :request do
-  let!(:har) { FactoryBot.create(:har_file) }
+  let!(:har) { FactoryBot.create(:valid_har) }
   context 'with valid file' do
     it 'updates har file' do
       updated_fields = FactoryBot.attributes_for(:updated_har)

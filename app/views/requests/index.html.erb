@@ -21,7 +21,7 @@
         <td><%= request.index %></td>
         <td><%= request.method %></td>
         <td><%= request.uri %></td>
-        <td><%= link_to 'Show', har_file_request_url(id: request.id) %></td>
+        <td><%= link_to 'Show', har_file_request_by_index_url(index: request.index) %></td>
       </tr>
     <% end %>
   </tbody>
